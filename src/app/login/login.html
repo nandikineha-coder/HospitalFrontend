@@ -1,0 +1,63 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <img src="assets/logo.png" alt="Hospital Logo" class="logo" />
+    <div class="hospital-name text-white fw-bold fs-4 mx-auto">Happy Health Hospital</div>
+    <div class="dropdown ms-auto">
+      <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+        <li><a class="dropdown-item" [routerLink]="'/register'">Register</a></li>
+        <li><a class="dropdown-item" [routerLink]="'/login'">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Container -->
+<div class="signup-container">
+  <!-- Left: Image Carousel -->
+  <div class="carousel-container">
+    <div id="hospitalCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="3000">
+      <div class="carousel-inner h-100">
+        <div class="carousel-item active">
+          <img src = "assets/user1.png">
+        </div>
+        <div class="carousel-item">
+          <img src = "assets/user2.png">
+        </div>
+        <div class="carousel-item">
+          <img src = "assets/user3.png">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Login Form -->
+  <div class="form-section">
+    <div class="form-box">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email" class="form-control" />
+          <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            Valid email is required.
+          </small>
+        </div>
+
+        <div>
+          <label for="password">Password:</label>
+          <input id="password" formControlName="password" type="password" class="form-control" />
+          <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Password is required.
+          </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+        <button type="button" class="btn btn-outline-primary w-100 mt-2" routerLink="/register">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

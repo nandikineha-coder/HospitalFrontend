@@ -1,0 +1,140 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <img src="assets/logo.png" alt="Hospital Logo" class="logo" />
+    <div class="hospital-name text-white fw-bold fs-4 mx-auto">Happy Health Hospital</div>
+    <div class="dropdown ms-auto">
+      <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+        <li><a class="dropdown-item" [routerLink]="'/register'">Register</a></li>
+        <li><a class="dropdown-item" [routerLink]="'/login'">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="signup-container">
+  <!-- Left: Image Carousel -->
+  <div class="carousel-container">
+    <div id="hospitalCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="3000">
+      <div class="carousel-inner h-100">
+        <div class="carousel-item active">
+          <img src = "assets/user1.png">
+        </div>
+        <div class="carousel-item">
+          <img src = "assets/user2.png">
+        </div>
+        <div class="carousel-item">
+          <img src = "assets/user3.png">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Register Form -->
+  <div class="form-section">
+    <div class="form-box">
+      <h2>Register</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="firstName">First Name:</label>
+          <input id="firstName" formControlName="firstName" type="text" class="form-control" />
+          <small *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+            First name is required.
+          </small>
+        </div>
+
+        <div>
+          <label for="lastName">Last Name:</label>
+          <input id="lastName" formControlName="lastName" type="text" class="form-control" />
+          <small *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+            Last name is required.
+          </small>
+        </div>
+
+        <div>
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email" class="form-control" />
+          <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+            Valid email is required.
+          </small>
+        </div>
+
+        <div>
+          <label for="password">Password:</label>
+          <input id="password" formControlName="password" type="password" class="form-control" />
+          <small *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+            Passwords do not match.
+          </small>
+        </div>
+
+        <div>
+          <label for="confirmPassword">Confirm Password:</label>
+          <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control" />
+          <small *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+            Confirm Password is required.
+          </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Register</button>
+        <button type="button" class="btn btn-outline-primary w-100 mt-2" (click)="goToLogin()">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="register-container">
+  <h2>Register</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName" type="text" />
+      <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+        <small>First name is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" formControlName="lastName" type="text" />
+      <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+        <small>Last name is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <small>Valid email is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" formControlName="password" type="password" />
+      <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+        <small>Passwords do not match.</small>
+      </div>
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <small>Password is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input id="confirmPassword" formControlName="confirmPassword" type="password" />
+      <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+        <small>Confirm Password is required.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+
+<button type="button" class="login-btn" (click)="goToLogin()">Login</button>
+  </form>
+</div> -->
