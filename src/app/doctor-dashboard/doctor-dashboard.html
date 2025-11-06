@@ -1,1 +1,215 @@
-<p>doctor-dashboard works!</p>
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <img src="assets/logo.png" alt="Hospital Logo" class="logo" />
+    <div class="hospital-name text-white fw-bold fs-4 mx-auto">Happy Health Hospital</div>
+     <div class="navbar-right">
+    <button (click)="logout()">Logout</button>
+  </div>
+  </div>
+</nav>
+
+<!-- Sidebar + Content -->
+<div class="layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li (click)="selectOption('home')">Home</li>
+      <li (click)="selectOption('profile')">Profile</li>
+      <li (click)="selectOption('appointment')">Appointment</li>
+      <li (click)="selectOption('notification')">Notification</li>
+      <li (click)="selectOption('medical-history')">Medical History</li>
+      <li (click)="selectOption('medicine')">Medicine</li>
+      <li (click)="selectOption('calender')">Calender</li>
+    </ul>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content">
+    <ng-container [ngSwitch]="selectedOption">
+      <div *ngSwitchCase="'home'">
+        <div class="content-area">
+          <h3 class="section-title"> Hello Life Saver!</h3>
+
+    <!-- Hospital Carousel -->
+    <div id="hospitalSlides" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3000">
+      <div class="carousel-inner rounded-3">
+          <div class="carousel-item active">
+            <img src="assets/user1.png" class="d-block w-100" alt="Hospital 1">
+          </div> 
+          <div class="carousel-item">
+            <img src="assets/user2.png" class="d-block w-100" alt="Hospital 2">
+          </div>
+          <div class="carousel-item">
+            <img src="assets/user3.png" class="d-block w-100" alt="Hospital 3">
+          </div>
+          <div class="carousel-item">
+            <img src="assets/user4.png" class="d-block w-100" alt="Hospital 4">
+          </div>
+        </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#hospitalSlides" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#hospitalSlides" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Common Diseases Section -->
+    <h4 class="section-title mt-4">Common Diseases & Remedies</h4>
+    <div id="diseaseSlides" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Add your disease cards here -->
+        <!-- Example: Common Cold -->
+        <div class="carousel-item active">
+          <div class="card-slide">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Common Cold</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Symptoms</h6>
+                <p class="card-text">Runny nose, sneezing, sore throat, cough, and general fatigue.</p>
+                <h6 class="card-subtitle mb-2 text-muted">Remedies</h6>
+                <p class="card-text">Rest, stay hydrated, use a humidifier, and drink warm fluids.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+  <div class="card-slide">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Fever</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Symptoms</h6>
+        <p class="card-text">Elevated body temperature, chills, sweating, headache, and weakness.</p>
+        <h6 class="card-subtitle mb-2 text-muted">Remedies</h6>
+        <p class="card-text">Stay hydrated, rest, use fever-reducing medications like paracetamol.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="carousel-item">
+  <div class="card-slide">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Diarrhea</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Symptoms</h6>
+        <p class="card-text">Frequent loose stools, abdominal cramps, nausea, and dehydration.</p>
+        <h6 class="card-subtitle mb-2 text-muted">Remedies</h6>
+        <p class="card-text">Oral rehydration solution (ORS), bland diet, avoid dairy and fatty foods.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="carousel-item">
+  <div class="card-slide">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Ear Infection</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Symptoms</h6>
+        <p class="card-text">Ear pain, trouble hearing, fever, fluid drainage from ear.</p>
+        <h6 class="card-subtitle mb-2 text-muted">Remedies</h6>
+        <p class="card-text">Warm compress, pain relievers, consult pediatrician for antibiotics.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="carousel-item">
+  <div class="card-slide">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Skin Rash</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Symptoms</h6>
+        <p class="card-text">Redness, itching, bumps or patches on skin.</p>
+        <h6 class="card-subtitle mb-2 text-muted">Remedies</h6>
+        <p class="card-text">Apply soothing lotion, avoid irritants, consult doctor if persistent.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="carousel-item">
+  <div class="card-slide">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Constipation</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Symptoms</h6>
+        <p class="card-text">Infrequent bowel movements, hard stools, abdominal discomfort.</p>
+        <h6 class="card-subtitle mb-2 text-muted">Remedies</h6>
+        <p class="card-text">Increase fiber intake, drink water, gentle exercise, pediatric laxatives if advised.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Add more carousel items for other diseases -->
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#diseaseSlides" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#diseaseSlides" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Body Map Section -->
+    <h4 class="section-title">Find the Right Doctor</h4>
+    <div class="body-map-section">
+      <p>Identify the body part and find the specialist you need to see.</p>
+      <div class="body-map-container">
+        
+
+        
+<a [routerLink]="['/baby-body-map']" class="body-image-link">
+  <img src="assets/baby-bodyparts.png">
+</a>
+
+<a [routerLink]="['/female-body-map']" class="body-image-link">
+  <img src="assets/female-bodyparts.png">
+</a>
+
+<a [routerLink]="['/male-body-map']" class="body-image-link">
+  <img src="assets/male-bodyparts.png">
+</a>
+
+
+    
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Other Sections -->
+    <div *ngSwitchCase="'profile'">
+      <div class="dashboard-container">
+        <h2>Profile Section</h2>
+        <!-- Profile content here -->
+      </div>
+    </div>
+
+
+<div *ngSwitchCase="'appointment'">
+      <div class="dashboard-container">
+        <h2>Appointment Section</h2>
+        <!-- Appointment content here -->
+      </div>
+    </div>
+         
+    </ng-container>
+  </div>
+</div>

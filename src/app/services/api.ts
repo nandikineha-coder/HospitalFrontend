@@ -25,5 +25,12 @@ get(url: string) {
 post(url: string, body: any) {
   return this.http.post(this.baseUrl + url, body);
 }
+
+
+
+getPatientProfile(id: number) {
+  return this.http.get(`/api/PatientProfile/get/${id}`);
+}
+
 }
 ``

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Api } from '../services/api';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-register',
@@ -13,19 +15,38 @@ import { RouterModule } from '@angular/router';
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
-export class Register {
+export class Register implements AfterViewInit{
   registerForm: FormGroup;
+
+  ngAfterViewInit(): void {
+      
+      const carouselElement = document.getElementById('hospitalSlides');
+      if(carouselElement){
+        new bootstrap.Carousel(carouselElement, {
+          interval: 3000, ride: 'carousel'
+        });
+    }
+    }
 
   constructor(private fb: FormBuilder, private api: Api, private router: Router) {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [
+  Validators.required,
+  Validators.minLength(10),
+  Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$/)
+]],
+      // password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     }, {
       validators: this.passwordMatchValidator
     });
+  }
+
+  get password(){
+    return this.registerForm.get('password')
   }
 
   // ✅ Move this method outside the constructor

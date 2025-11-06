@@ -1,0 +1,65 @@
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+    }
+
+    /* --- Back Button Styling --- */
+    .back-button {
+      padding: 10px 20px;
+      background-color: #007bff; /* Blue color */
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      transition: background-color 0.3s, transform 0.1s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .back-button:hover {
+      background-color: #0056b3;
+      transform: translateY(-1px);
+    }
+ 
+    .body-container {
+      position: relative;
+      display: inline-block;
+    }
+ 
+    .tooltip {
+      position: absolute;
+      background: #222;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      visibility: hidden;
+      white-space: nowrap;
+      /* pointer-events: none; */
+      pointer-events: auto;
+      transform: translate(-50%, -60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+ 
+    .hotspot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(1, 251, 51, 0.4);
+      cursor: pointer;
+    }
+ 
+    .hotspot:hover .tooltip {
+        opacity: 1;
+      visibility: visible;
+    }
+ 
+    img {
+      max-width: 350px;
+    }

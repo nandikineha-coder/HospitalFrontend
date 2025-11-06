@@ -18,21 +18,35 @@
 
 <div class="signup-container">
   <!-- Left: Image Carousel -->
-  <div class="carousel-container">
-    <div id="hospitalCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="3000">
-      <div class="carousel-inner h-100">
-        <div class="carousel-item active">
-          <img src = "assets/user1.png">
-        </div>
-        <div class="carousel-item">
-          <img src = "assets/user2.png">
-        </div>
-        <div class="carousel-item">
-          <img src = "assets/user3.png">
-        </div>
+<!-- Carousel Section -->
+<div class="carousel-container">
+  <div id="hospitalSlides" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner rounded-3">
+      <div class="carousel-item active">
+        <img src="assets/user1.png">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/user2.png">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/user3.png">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/user4.png">
       </div>
     </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#hospitalSlides" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hospitalSlides" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
+</div>
 
   <!-- Right: Register Form -->
   <div class="form-section">
@@ -70,6 +84,13 @@
             Passwords do not match.
           </small>
         </div>
+        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
+  <div *ngIf="password?.errors?.['required']">Password is required.</div>
+  <div *ngIf="password?.errors?.['minlength']">Password must be at least 10 characters long.</div>
+  <div *ngIf="password?.errors?.['pattern']">
+    Password must include uppercase, lowercase, number, and special character.
+  </div>
+</div>
 
         <div>
           <label for="confirmPassword">Confirm Password:</label>

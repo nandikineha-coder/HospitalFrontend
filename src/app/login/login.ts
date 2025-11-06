@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,9 @@ import { Api } from '../services/api'; // Your service
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { interval } from 'rxjs';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,7 @@ import { jwtDecode } from 'jwt-decode';
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
-export class Login {
+export class Login implements AfterViewInit {
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder, private api: Api, private router: Router) {
@@ -23,6 +26,16 @@ export class Login {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+  }
+
+  ngAfterViewInit(): void {
+    
+    const carouselElement = document.getElementById('hospitalSlides');
+    if(carouselElement){
+      new bootstrap.Carousel(carouselElement, {
+        interval: 3000, ride: 'carousel'
+      });
+  }
   }
 
 onSubmit() {
