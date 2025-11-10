@@ -16,8 +16,7 @@
   <div class="sidebar">
     <ul>
       <li (click)="selectOption('assign-role')">Assign Role</li>
-      <li (click)="selectOption('doctor')">Doctors</li>
-      <li (click)="selectOption('patient')">Patients</li>
+      <li (click)="selectOption('user')">Users</li>
     </ul>
   </div>
 
@@ -66,48 +65,42 @@
         </div>
       </div>
 
-      <div *ngSwitchCase="'doctor'">
-        <div class="dashboard-container">
-          <h2>Doctors List</h2>
-          
-<table>
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Gender</th>
-          <th>DOB</th>
-          <th>Specialization</th>
-          <th>Experience</th>
-          <th>Qualifications</th>
-          
-</tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let doctor of doctors">
-          <td>{{ doctor.userId }}</td>
-          <td>{{ doctor.firstName }} {{ doctor.lastName }}</td>
-          <td>{{ doctor.email }}</td>
-          <td>{{ doctor.phoneNumber }}</td>
-          <td>{{ doctor.gender }}</td>
-          <td>{{ doctor.dob }}</td>
-          
-<td>{{ doctor.specialization }}</td>
-          <td>{{ doctor.experience }} years</td>
-          <td>{{ doctor.qualifications }}</td>
-        </tr>
-      </tbody>
-    </table>
+      
+<div *ngSwitchCase="'user'" class="dashboard-container">
+  <h2>All Users</h2>
+
+  <!-- Filter and Search -->
+  <div class="filter-container">
+    <select [(ngModel)]="selectedRole" (change)="filterByRole()">
+      <option value="">All Roles</option>
+      <option value="Doctor">Doctor</option>
+      <option value="Patient">Patient</option>
+    </select>
+
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or email" />
+    <button (click)="searchUsers()">Search</button>
   </div>
+
+  <!-- Users Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of filteredUsers">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-
-      <div *ngSwitchCase="'patient'">
-        <h3>Patients List</h3>
-        <p>Patient details will appear here.</p>
-      </div>
-    </ng-container>
-  </div>
-</div>

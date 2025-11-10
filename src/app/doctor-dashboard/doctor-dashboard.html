@@ -18,8 +18,6 @@
       <li (click)="selectOption('profile')">Profile</li>
       <li (click)="selectOption('appointment')">Appointment</li>
       <li (click)="selectOption('notification')">Notification</li>
-      <li (click)="selectOption('medical-history')">Medical History</li>
-      <li (click)="selectOption('medicine')">Medicine</li>
       <li (click)="selectOption('calender')">Calender</li>
     </ul>
   </div>
@@ -184,31 +182,210 @@
 <a [routerLink]="['/male-body-map']" class="body-image-link">
   <img src="assets/male-bodyparts.png">
 </a>
-
-
-    
-
       </div>
     </div>
   </div>
 </div>
 
 
-<!-- Other Sections -->
-    <div *ngSwitchCase="'profile'">
-      <div class="dashboard-container">
-        <h2>Profile Section</h2>
-        <!-- Profile content here -->
-      </div>
+<!-- Profile -->
+<div *ngSwitchCase="'profile'" class="profile-section">
+  <h2>Doctor Profile</h2>
+
+  <!-- Initial View -->
+  <div *ngIf="!isEditing && !showDetails" class="item-card">
+    <p><strong>Name:</strong> {{ doctorName }}</p>
+    <p><strong>Email:</strong> {{ profileForm.get('email')?.value }}</p>
+    <div class="button-group">
+      <button (click)="showDetails = true" style="background-color:#1976d2;color:white;padding:10px 16px;border-radius:4px;">View Profile</button>
+      <button (click)="enableEdit()" style="background-color:#e0e0e0;color:#333;padding:10px 16px;border-radius:4px;">Edit Profile</button>
     </div>
+  </div>
+
+  
+
+<div *ngIf="showDetails && profileForm" class="item-card">
+  <div class="card-content">
+    <p><strong>Name:</strong> {{ doctorName }}</p>
+    <p><strong>Email:</strong> {{ profileForm.get('email')?.value }}</p>
+    <p><strong>Phone:</strong> {{ profileForm.get('phoneNumber')?.value }}</p>
+    <p><strong>Gender:</strong> {{ profileForm.get('gender')?.value }}</p>
+    <p><strong>DOB:</strong> {{ profileForm.get('dob')?.value }}</p>
+    <p><strong>Specialization:</strong> {{ profileForm.get('specialization')?.value }}</p>
+    <p><strong>Qualification:</strong> {{ profileForm.get('qualification')?.value }}</p>
+    <p><strong>Experience:</strong> {{ profileForm.get('experience')?.value }} years</p>
+    <div class="button-group">
+      <button (click)="showDetails = false" style="background-color:#1976d2;color:white;padding:10px 16px;border-radius:4px;">Close</button>
+      <button (click)="downloadProfilePdf()" style="background-color:#4caf50;color:white;padding:10px 16px;border-radius:4px;">Download PDF</button>
+    </div>
+  </div>
+
+  
+<div *ngFor="let slot of availabilityList; let i = index" class="item-card" (click)="toggleExpand(i)" style="cursor:pointer;">
+  <strong>{{ slot.availableDate }}</strong>
+  <div *ngIf="expandedIndex === i" class="slots-container">
+    <p><strong>Start:</strong> {{ slot.startTime }}</p>
+    <p><strong>End:</strong> {{ slot.endTime }}</p>
+    <p><strong>Status:</strong> {{ slot.isAvailable ? 'Available' : 'Not Available' }}</p>
+  </div>
+</div>
+</div>
+
+  <!-- Edit Mode -->
+  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <form *ngIf="isEditing" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+    <p><strong>Name:</strong> {{ doctorName }}</p>
+    <p><strong>Email:</strong> {{ profileForm.get('email')?.value }}</p>
+    <div class="item-card">
+      <label>Phone Number:</label>
+      <input formControlName="phoneNumber" type="text" maxlength="10" pattern="[0-9]{10}" />
+      <label>Gender:</label>
+      <select formControlName="gender">
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <label>DOB:</label>
+      <input formControlName="dob" type="date" />
+      <label>Specialization:</label>
+      <select formControlName="specialization">
+       <option *ngFor="let spec of specializations" [value]="spec">{{ spec }}</option>
+      </select>
+      <label>Qualification:</label>
+      <input formControlName="qualification" type="text" maxlength="100" />
+      <label>Experience (Years):</label>
+      <input formControlName="experience" type="number" min="0" />
+      <div class="button-group">
+      <button type="submit" class="primary-btn">Save</button>
+      <button type="button" style="background-color:#f44336;color:white;padding:10px 16px;border-radius:4px;" (click)="cancelEdit()">Cancel</button>
+      <button type="button" class="secondary-btn" (click)="cancelEdit()">Back</button>
+    </div>
+    </div>
+    
+  </form>
+</div>
 
 
-<div *ngSwitchCase="'appointment'">
-      <div class="dashboard-container">
-        <h2>Appointment Section</h2>
-        <!-- Appointment content here -->
+<!-- Appointment Section -->
+<div *ngSwitchCase="'appointment'" class="dashboard-container">
+  <h2>Appointments</h2>
+
+  <div class="filter-container">
+    <input type="date" [(ngModel)]="filterFromDate" />
+    <input type="date" [(ngModel)]="filterToDate" />
+    <button (click)="loadAppointments()">Filter</button>
+  </div>
+
+  
+  <ng-container *ngIf="appointments as appts">
+    <div *ngIf="appointments && appointments.length > 0; else noAppointments">
+      <table>
+        <thead>
+          <tr>
+            <th>Patient ID</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+            
+</tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appt of appointments">
+            <td>{{ appt.patientId }}</td>
+            <td>{{ appt.startUtc | date: 'short' }}</td>
+            <td>{{ appt.endUtc | date: 'short' }}</td>
+            <td>{{ appt.status }}</td>
+            <td>
+              <button class="secondary-btn" (click)="rescheduleAppointment(appt)">Reschedule</button>
+              <button class="primary-btn" (click)="cancelAppointment(appt.appointmentId)">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  
+ <ng-template #noAppointments>
+    <p>No appointments found.</p>
+  </ng-template>
+</div>
+
+
+
+
+<!-- Calendar -->
+<div *ngSwitchCase="'calender'">
+  <div class="dashboard-container">
+    <h2>Set Availability</h2>
+
+    <!-- Availability Form -->
+    <div class="item-card">
+      <form [formGroup]="availabilityForm" (ngSubmit)="submitAvailability()">
+        <label>Date:</label>
+        
+<input
+  type="date"
+  formControlName="availableDate"
+  [min]="minDate"
+  [max]="maxDate"
+  required
+/>
+<div *ngIf="availabilityForm.get('availableDate')?.errors?.['dateOutOfRange']" class="error-message">
+  Date must be today or within the next 2 days.
+</div>
+
+
+        <label>Start Time:</label>
+        <input type="time" formControlName="startTime" required>
+
+        <label>End Time:</label>
+        <input type="time" formControlName="endTime" required>
+
+        <div class="button-group">
+          <button type="submit" class="primary-btn">Set Availability</button>
+        </div>
+      </form>
+      <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    </div>
+
+    
+
+<!-- Search and Sort Section -->
+<div class="item-card" style="margin-bottom: 20px;">
+  <h3>Search & Sort Availability</h3>
+  <div class="filter-container">
+    <!-- Search by Date -->
+    
+<input type="date" [(ngModel)]="searchQuery" />
+    <button class="primary-btn" (click)="searchAvailability()">Search</button>
+
+
+    <!-- Sort Options -->
+    <select [(ngModel)]="sortOrder" (change)="sortAvailability()">
+      <option value="asc">Sort: Date ↑</option>
+      <option value="desc">Sort: Date ↓</option>
+    </select>
+  </div>
+</div>
+
+
+    <!-- Grouped Availability -->
+    <div *ngFor="let group of groupedAvailability" class="item-card">
+      <strong>{{ group.date }}</strong>
+      <div class="slots-container">
+        <div *ngFor="let slot of group.slots" class="slot-card">
+          {{ slot.startTime }} - {{ slot.endTime }}
+          <div class="button-group" style="margin-top:10px;">
+            <button class="secondary-btn" (click)="editSlot(slot)">Edit</button>
+            <button class="primary-btn" style="background-color:#d9534f;" (click)="deleteSlot(slot.scheduleId)">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+</div>
          
     </ng-container>
   </div>

@@ -43,14 +43,12 @@ export class Login implements AfterViewInit {
       this.api.login(this.loginForm.value).subscribe({
         next: (token: string) => {
           localStorage.setItem('token', token); // Save JWT
-
           const decoded: any = jwtDecode(token);
           const role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
           const userId = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
           localStorage.setItem('role', role);
           localStorage.setItem('userId', userId);
           alert('Login successful!');
-
           // Redirect based on role
           if (role === 'Admin') {
             this.router.navigate(['/admin-dashboard']);
