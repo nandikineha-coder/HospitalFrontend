@@ -183,21 +183,100 @@
 <a [routerLink]="['/male-body-map']" class="body-image-link">
   <img src="assets/male-bodyparts.png">
 </a>
-
-
-    
-
       </div>
     </div>
   </div>
 </div>
 
-<div *ngSwitchCase="'profile'">
-      <div class="dashboard-container">
-        <h2>Profile</h2>
-        <!-- Appointment content here -->
-      </div>
-    </div>
+<!-- Profile -->
+<div *ngSwitchCase="'profile'" class="profile-section">
+  <h2>Patient Profile</h2>
+<div *ngIf="!isEditing && !showDetails" class="item-card">
+  <p><strong>Name:</strong> {{ patientName }}</p>
+  <p><strong>Email:</strong> {{ profileForm.get('email')?.value }}</p>
+
+  <div class="button-group">
+    <button 
+      (click)="showDetails = true" 
+      style="background-color: #1976d2; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      View Profile
+    </button>
+
+    <button 
+      (click)="enableEdit()" 
+      style="background-color: #e0e0e0; color: #333; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      Edit Profile
+    </button>
+  </div>
+</div>
+<!-- View Mode -->
+<div *ngIf="showDetails && !isEditing" class="item-card">
+  <p><strong>Name:</strong> {{ patientName }}</p>
+  <p><strong>Email:</strong> {{ profileForm.get('email')?.value }}</p>
+  <p><strong>Phone:</strong> {{ profileForm.get('phoneNumber')?.value }}</p>
+  <p><strong>Gender:</strong> {{ profileForm.get('gender')?.value }}</p>
+  <p><strong>DOB:</strong> {{ profileForm.get('dob')?.value }}</p>
+  <p><strong>Address:</strong> {{ profileForm.get('adress')?.value }}</p>
+  <p><strong>Blood Group:</strong> {{ profileForm.get('bloodGroup')?.value }}</p>
+  <p><strong>Emergency Contact:</strong> {{ profileForm.get('emergencyContact')?.value }}</p>
+
+  <div class="button-group">
+    <button 
+      (click)="showDetails = false" 
+      style="background-color: #1976d2; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      Close
+    </button>
+    <button 
+      (click)="downloadProfilePdf()" 
+      style="background-color: #4caf50; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+      Download PDF
+    </button>
+  </div>
+</div>
+<!-- Edit Mode -->
+ <div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+<form *ngIf="isEditing" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+  <p><strong>Name:</strong> {{ patientName }}</p>
+  <p><strong>Email:</strong> {{ profileForm.get('email')?.value }}</p>
+
+
+<div class="item-card">
+  <label>Phone Number:</label>
+  <input formControlName="phoneNumber" type="text" maxlength="10" pattern="[0-9]{10}" />
+
+  <label>Gender:</label>
+  <select formControlName="gender">
+    <option value="">Select Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <label>DOB:</label>
+  <input formControlName="dob" type="date" />
+
+  <label>Address:</label>
+  <input formControlName="adress" type="text" maxlength="100" />
+
+  <label>Blood Group:</label>
+  <select formControlName="bloodGroup">
+    <option value="">Select Blood Group</option>
+    <option *ngFor="let group of bloodGroups" [value]="group">{{ group }}</option>
+  </select>
+
+  
+<label>Emergency Contact:</label>
+  <input formControlName="emergencyContact" type="text" maxlength="10" pattern="[0-9]{10}"/>
+</div>
+<div class="button-group">
+  <button type="submit" class="primary-btn">Save</button>
+  <button type="button" style="background-color: #f44336; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;" (click)="cancelEdit()">Cancel</button>
+  <button type="button" class="secondary-btn" (click)="cancelEdit()">Back</button>
+</div>
+</form>
+</div>
 
 
 
