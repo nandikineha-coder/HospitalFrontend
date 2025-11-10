@@ -1,0 +1,180 @@
+/* Booking Search Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero {
+    background: linear-gradient(135deg, rgba(173, 216, 230, 0.7) 0%, rgba(240, 248, 255, 0.8) 100%),
+        url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #2c3e50;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero>* {
+    position: relative;
+    z-index: 3;
+}
+
+/* Light pattern overlay */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(135, 206, 250, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 70% 30%, rgba(176, 224, 230, 0.2) 0%, transparent 40%);
+    animation: lightMove 12s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes lightMove {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease-out, pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+    max-width: 600px;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.searchbox {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 500px;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.searchbox input {
+    padding: 1.2rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+    }
+}
+
+.searchbox input:focus {
+    outline: none;
+    background: white;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.searchbox input::placeholder {
+    color: #666;
+    opacity: 0.8;
+}
+
+.btn {
+    background: linear-gradient(45deg, #4A90E2, #7BB3F0);
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
+}
+
+.help {
+    margin-top: 2rem;
+    font-size: 1rem;
+    opacity: 0.8;
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .searchbox {
+        max-width: 90%;
+    }
+}

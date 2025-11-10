@@ -1,0 +1,41 @@
+<body>
+  <section class="card">
+    <h2>Book an Appointment</h2>
+
+    <div class="grid">
+      <label>Select date:
+        <input type="date" [(ngModel)]="selectedDate" (change)="loadSlots()">
+      </label>
+
+      <label>Duration:
+        <select [(ngModel)]="durationMinutes" (change)="loadSlots()">
+          <option [value]="15">15 min</option>
+          <option [value]="30">30 min</option>
+          <option [value]="45">45 min</option>
+          <option [value]="60">60 min</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="mutedload" *ngIf="loading">Loading slots…</div>
+    <p class="muted" *ngIf="!loading && slots.length===0">No availability for the selected date.</p>
+
+    <div class="slots" *ngIf="!loading && slots.length">
+      <h3>Available times for {{ prettyDate(selectedDate) }}:</h3>
+      <div class="slot-grid">
+        <button *ngFor="let s of slots" [disabled]="s.disabled" (click)="selectSlot(s)"
+          [class.selected]="s.time === selectedTime">
+          {{ s.time }}
+        </button>
+      </div>
+    </div>
+
+    <label>Notes:
+      <textarea [(ngModel)]="notes" rows="3"></textarea>
+    </label>
+
+    <button class="btn-primary" (click)="book()" [disabled]="!selectedTime || booking">Book Appointment</button>
+    <p class="success" *ngIf="success">{{ success }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </section>
+</body>

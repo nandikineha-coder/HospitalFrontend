@@ -1,0 +1,360 @@
+.muted {
+    color: #6b7280;
+}
+
+.actions {
+    margin: 12px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #1d4ed8;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1e40af;
+    margin-bottom: 8px;
+}
+
+.error {
+    color: #b91c1c;
+}
+
+/* Doctor Profile - Behance Inspired Design */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(240, 248, 255, 0.4)), url('https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2086&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2rem;
+    backdrop-filter: blur(4px);
+}
+
+/* Main Section Container */
+section {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #474c4f;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Header Section with Doctor Info */
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    z-index: 1;
+}
+
+.card {
+    position: relative;
+    z-index: 2;
+    padding: 0;
+}
+
+/* Doctor Icon */
+.card::before {
+    content: '🩺';
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    z-index: 3;
+}
+
+/* Back Button */
+button.link,
+.link {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(3px);
+    font-family: inherit;
+    z-index: 3;
+}
+
+button.link:hover,
+.link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* Doctor Name */
+.card h2 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 2rem 0 0.5rem 120px;
+    padding-top: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Specialization */
+.card>p:first-of-type {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 120px;
+}
+
+/* Email */
+.card>p.muted {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 2rem 120px;
+    font-size: 1rem;
+}
+
+/* Actions Section */
+.actions {
+    margin: 0 0 3rem 120px;
+    padding-bottom: 2rem;
+}
+
+/* Book Appointment Button */
+.btn {
+    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+    text-decoration: none;
+}
+
+/* Content Area */
+.card h3 {
+    color: #dee4e8;
+    font-size: 1.8rem;
+    margin: 3rem 2rem 1.5rem 2rem;
+    font-weight: 700;
+    position: relative;
+}
+
+.card h3::before {
+    content: '📋';
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Information Cards */
+.card p:not(.muted):not(:first-of-type) {
+    color: #666;
+    line-height: 1.6;
+    margin: 1rem 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+    border-left: 4px solid #4CAF50;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card p:not(.muted):not(:first-of-type):hover {
+    background: #f0f8f0;
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
+}
+
+/* Add icons to info cards */
+.card p:not(.muted):not(:first-of-type):nth-of-type(4)::before {
+    content: '🎓 ';
+    font-size: 1.2rem;
+}
+
+.card p:not(.muted):not(:first-of-type):nth-of-type(5)::before {
+    content: '⏱️ ';
+    font-size: 1.2rem;
+}
+
+.card p:not(.muted):not(:first-of-type):nth-of-type(6)::before {
+    content: '📝 ';
+    font-size: 1.2rem;
+}
+
+/* Stats Section */
+.card::after {
+    content: '';
+    display: block;
+    height: 100px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    margin-top: 2rem;
+}
+
+/* Loading State */
+div:not(.card):not(.actions) {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: white;
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin: 2rem auto;
+    max-width: 400px;
+    backdrop-filter: blur(3px);
+}
+
+/* Error State */
+p.error {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    margin: 2rem auto;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+    animation: errorPulse 2s ease-in-out infinite;
+}
+
+@keyframes errorPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 15px 35px rgba(255, 107, 107, 0.5);
+    }
+}
+
+/* Angular Animations */
+.card.ng-star-inserted {
+    animation: slideInUp 0.8s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    section {
+        margin: 0;
+    }
+
+    section::before {
+        height: 150px;
+    }
+
+    .card::before {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+        top: 1.5rem;
+        left: 1.5rem;
+    }
+
+    .card h2 {
+        font-size: 1.8rem;
+        margin-left: 1.5rem;
+        padding-top: 1rem;
+    }
+
+    .card>p:first-of-type,
+    .card>p.muted,
+    .actions {
+        margin-left: 1.5rem;
+    }
+
+    .card h3,
+    .card p:not(.muted):not(:first-of-type) {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    button.link,
+    .link {
+        top: 1.5rem;
+        right: 1.5rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card h2 {
+        margin-left: 1rem;
+        margin-top: 6rem;
+        font-size: 1.6rem;
+    }
+
+    .card>p:first-of-type,
+    .card>p.muted,
+    .actions {
+        margin-left: 1rem;
+    }
+
+    .card::before {
+        position: static;
+        margin: 1rem auto 1rem auto;
+        display: block;
+    }
+}

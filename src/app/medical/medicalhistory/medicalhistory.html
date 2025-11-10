@@ -1,0 +1,126 @@
+<body>
+
+    <section class="container">
+        <div class="header">
+            <h1>Medical History</h1>
+            <button class="btn-add" (click)="addRecord()">+ Add Record</button>
+        </div>
+
+        <div class="filters">
+            <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()"
+                placeholder="Search diagnosis or treatment..." class="search-input">
+
+            <input type="date" [(ngModel)]="filterDate" (ngModelChange)="applyFilters()" class="date-filter">
+        </div>
+
+        <div class="records" *ngIf="!loading && filteredHistories.length">
+            <div class="record-card" *ngFor="let history of filteredHistories">
+                <div class="record-header">
+                    <div class="record-id">Record #{{ history.historyId }}</div>
+                    <div class="record-date">{{ history.recordDate}}</div>
+                </div>
+                <div class="diagnosis-section">
+                    <h3>{{ history.diagnosis || 'No diagnosis recorded' }}</h3>
+                    <p class="doctor" *ngIf="history.doctorName">Dr {{ history.doctorName }}</p>
+                    <p class="no-doctor" *ngIf="!history.doctorName">No doctor assigned</p>
+                </div>
+                <div class="treatment-section" *ngIf="history.treatment">
+                    <h4>Treatment</h4>
+                    <p class="treatment">{{ history.treatment }}</p>
+                </div>
+
+                <div class="medications-section" *ngIf="history.medications?.length">
+                    <h4>Medications ({{ history.medications?.length }})</h4>
+                    <div class="medication-list">
+                        <div class="medication" *ngFor="let med of history.medications" (click)="viewMedication(med)">
+                            <span class="drug-name">{{ med.drugName }}</span>
+                            <span class="dosage">{{ med.dosage }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="record-actions">
+                    <button class="btn-view" (click)="viewRecord(history)">View Details</button>
+                    <button class="btn-edit" (click)="editRecord(history)">Edit</button>
+                    <button class="btn-delete" (click)="deleteRecord(history)">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" *ngIf="!loading && medicalHistories.length === 0">
+            <div class="empty-icon">📋</div>
+            <h3>No Medical Records</h3>
+            <p>Your medical history will appear here once you have appointments.</p>
+        </div>
+
+        <div class="empty-state" *ngIf="!loading && medicalHistories.length > 0 && filteredHistories.length === 0">
+            <div class="empty-icon">🔍</div>
+            <h3>No Matching Records</h3>
+            <p>Try adjusting your search terms or date filter.</p>
+        </div>
+
+        <div class="loading" *ngIf="loading">Loading medical records...</div>
+    </section>
+
+    <div class="modal-overlay" *ngIf="showMedicationModal" (click)="closeMedicationModal()">
+        <div class="medication-modal" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Medication Details</h3>
+                <button class="close-btn" (click)="closeMedicationModal()">×</button>
+            </div>
+
+            <div class="modal-content">
+                <div class="med-field">
+                    <label>Drug Name:</label>
+                    <span>{{ selectedMedication?.drugName || 'N/A' }}</span>
+                </div>
+                <div class="med-field">
+                    <label>Dosage:</label>
+                    <span>{{ selectedMedication?.dosage || 'N/A' }}</span>
+                </div>
+                <div class="med-field">
+                    <label>Duration:</label>
+                    <span>{{ selectedMedication?.duration || 'N/A' }}</span>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-edit-med" (click)="editMedication()">Edit</button>
+                <button class="btn-delete-med" (click)="deleteMedication()">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" *ngIf="showRecordModal" (click)="closeRecordModal()">
+        <div class="medication-modal" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Add New Medical Record</h3>
+                <button class="close-btn" (click)="closeRecordModal()">×</button>
+            </div>
+
+            <form class="modal-content" (ngSubmit)="submitRecord()">
+                <div class="med-field">
+                    <label for="doctorId">Doctor Name:</label>
+                    <input id="doctorId" type="text" [(ngModel)]="newRecord.DoctorName" name="doctorName" required>
+
+                </div>
+
+                <div class="med-field">
+                    <label for="diagnosis">Diagnosis:</label>
+                    <textarea id="diagnosis" [(ngModel)]="newRecord.Diagnosis" name="diagnosis" rows="3"
+                        required></textarea>
+                </div>
+
+                <div class="med-field">
+                    <label for="treatment">Treatment:</label>
+                    <textarea id="treatment" [(ngModel)]="newRecord.Treatment" name="treatment" rows="3"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-add">Save Record</button>
+                    <button type="button" class="btn-delete-med" (click)="closeRecordModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>

@@ -1,0 +1,20 @@
+<body>
+    <section *ngIf="doc" class="card">
+        <button class="link" routerLink="/doctors">← Back to Results</button>
+        <h2>{{ doc.name }}</h2>
+        <p>{{ doc.specialization }}</p>
+        <p class="muted">{{ doc.email }}</p>
+
+        <div class="actions">
+            <a [routerLink]="['/appointment', doc.doctorId]" class="btn">Book Appointment</a>
+        </div>
+
+        <h3>About</h3>
+        <p *ngIf="doc.qualifications">Qualifications: {{ doc.qualifications }}</p>
+        <p *ngIf="doc.experience">Experience: {{ doc.experience }} years</p>
+        <p *ngIf="doc.description">Description: {{ doc.description }} years</p>
+    </section>
+
+    <div *ngIf="!doc && !error">Loading…</div>
+    <p class="error" *ngIf="error">{{ error }}</p>
+</body>

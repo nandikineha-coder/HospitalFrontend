@@ -5,6 +5,10 @@ import { Login } from './login/login';
 import { AdminDashboard } from './admin-dashboard/admin-dashboard';
 import { DoctorDashboard } from './doctor-dashboard/doctor-dashboard';
 import { PatientDashboard } from './patient-dashboard/patient-dashboard';
+import { AppointmentScheduler } from './booking/components/appointment-scheduler/appointment-scheduler';
+import { BookingResults } from './booking/components/booking-results/booking-results';
+import { BookingSearch } from './booking/components/booking-search/booking-search';
+import { DoctorProfile } from './booking/components/doctor-profile/doctor-profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -16,7 +20,11 @@ export const routes: Routes = [
   { path: 'baby-body-map', loadComponent: () => import('./body-map-baby/body-map-baby').then(m => m.BodyMapBaby) },
   { path: 'male-body-map', loadComponent: () => import('./body-map-male/body-map-male').then(m => m.BodyMapMale) },
   { path: 'female-body-map', loadComponent: () => import('./body-map-female/body-map-female').then(m => m.BodyMapFemale) },
-  
+  {path:'appointment/:userId',loadComponent:()=>import('./booking/components/appointment-scheduler/appointment-scheduler').then(m=>m.AppointmentScheduler)},
+  {path:'result',loadComponent:()=>import('./booking/components/booking-results/booking-results').then(m=>m.BookingResults)},
+  {path:'search',loadComponent:()=>import('./booking/components/booking-search/booking-search').then(m=>m.BookingSearch)},
+  {path:'profiles/:userId',loadComponent:()=>import('./booking/components/doctor-profile/doctor-profile').then(m=>m.DoctorProfile)},
+  {path:'medical/medicalhistory',loadComponent:()=>import('./medical/medicalhistory/medicalhistory').then(m=>m.Medicalhistory)}
 ];
 
 // export const routes: Routes = [
