@@ -17,7 +17,6 @@
       <li (click)="selectOption('home')">Home</li>
       <li (click)="selectOption('profile')">Profile</li>
       <li (click)="selectOption('appointment')">Appointment</li>
-      <li (click)="selectOption('notification')">Notification</li>
       <li (click)="selectOption('calender')">Calender</li>
     </ul>
   </div>
@@ -211,9 +210,9 @@
     <p><strong>Phone:</strong> {{ profileForm.get('phoneNumber')?.value }}</p>
     <p><strong>Gender:</strong> {{ profileForm.get('gender')?.value }}</p>
     <p><strong>DOB:</strong> {{ profileForm.get('dob')?.value }}</p>
-    <p><strong>Specialization:</strong> {{ profileForm.get('specialization')?.value }}</p>
-    <p><strong>Qualification:</strong> {{ profileForm.get('qualification')?.value }}</p>
-    <p><strong>Experience:</strong> {{ profileForm.get('experience')?.value }} years</p>
+    <p><strong>Specialization:</strong> {{ profileForm.get('specilization')?.value }}</p>
+    <p><strong>Qualification:</strong> {{ profileForm.get('qualifications')?.value }}</p>
+    <p><strong>Experience:</strong> {{ profileForm.get('expirence')?.value }} years</p>
     <div class="button-group">
       <button (click)="showDetails = false" style="background-color:#1976d2;color:white;padding:10px 16px;border-radius:4px;">Close</button>
       <button (click)="downloadProfilePdf()" style="background-color:#4caf50;color:white;padding:10px 16px;border-radius:4px;">Download PDF</button>
@@ -249,13 +248,13 @@
       <label>DOB:</label>
       <input formControlName="dob" type="date" />
       <label>Specialization:</label>
-      <select formControlName="specialization">
-       <option *ngFor="let spec of specializations" [value]="spec">{{ spec }}</option>
+      <select formControlName="specilization">
+       <option *ngFor="let spec of specilization" [value]="spec">{{ spec }}</option>
       </select>
       <label>Qualification:</label>
-      <input formControlName="qualification" type="text" maxlength="100" />
+      <input formControlName="qualifications" type="text" maxlength="100" />
       <label>Experience (Years):</label>
-      <input formControlName="experience" type="number" min="0" />
+      <input formControlName="expirence" type="number" min="0" />
       <div class="button-group">
       <button type="submit" class="primary-btn">Save</button>
       <button type="button" style="background-color:#f44336;color:white;padding:10px 16px;border-radius:4px;" (click)="cancelEdit()">Cancel</button>
@@ -373,7 +372,7 @@
 
     <!-- Grouped Availability -->
     <div *ngFor="let group of groupedAvailability" class="item-card">
-      <strong>{{ group.date }}</strong>
+      <strong>{{ group.date | date:'dd-MM-yyyy' }}</strong>
       <div class="slots-container">
         <div *ngFor="let slot of group.slots" class="slot-card">
           {{ slot.startTime }} - {{ slot.endTime }}

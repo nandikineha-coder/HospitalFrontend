@@ -257,3 +257,25 @@ font-family: Arial, sans-serif;
   border: 1px solid #c3e6cb;
   font-weight: bold;
 }
+
+
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.tab-buttons button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+.tab-buttons button.active {
+  background-color: #1976d2;
+  color: white;
+}
+.filter-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}

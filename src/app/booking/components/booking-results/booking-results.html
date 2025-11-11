@@ -1,21 +1,28 @@
-<body>
-    <section>
-        <h2>Available Doctors</h2>
-        <p *ngIf="q">Showing results for "<strong>{{ q }}</strong>"</p>
 
-        <div *ngIf="loading">Loading…</div>
-        <div *ngIf="error" class="error">{{ error }}</div>
+<div class="booking-results-wrapper">
+  
+<section>
+  <button class="link" (click)="goBack()"> Back to Search</button>
+  <h2>Available Doctors</h2>
 
-        <ul class="list" *ngIf="!loading && !error">
-            <li class="card" *ngFor="let d of doctors">
-                <div class="avatar"></div>
-                <div class="info">
-                    <h3>{{ d.firstName }}</h3>
-                    <p>{{ d.dd.specialization || 'General Medicine' }}</p>
-                    <p class="muted">Email: {{ d.email }}</p>
-                    <a [routerLink]="['/profiles', d.userId]" class="btn-sm">View Profile</a>
-                </div>
-            </li>
-        </ul>
-    </section>
-</body>
+    <p *ngIf="q">Showing results for "<strong>{{ q }}</strong>"</p>
+
+    <!-- Loading and Error States -->
+    <div *ngIf="loading">Loading…</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <!-- Doctor List -->
+    <ul class="list" *ngIf="!loading && !error">
+      <li class="card" *ngFor="let d of doctors">
+        <div class="avatar"></div>
+        <div class="info">
+          <h3>{{ d.firstName }}</h3>
+          <p>{{ d.dd?.specialization || 'General Medicine' }}</p>
+          <p class="muted">Email: {{ d.email }}</p>
+          <!-- Event binding for profile view -->
+          <a (click)="openProfile(d.userId)" class="btn-sm">View Profile</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>

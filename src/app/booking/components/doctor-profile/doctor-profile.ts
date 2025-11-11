@@ -1,35 +1,51 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Api } from '../../../services/api';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-doctor-profile',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './doctor-profile.html',
-  styleUrl: './doctor-profile.css',
+  styleUrls: ['./doctor-profile.css'],
 })
 export class DoctorProfile implements OnInit {
+  @Input() doctorId!: number;
+  @Output() bookAppointment = new EventEmitter<number>();
+  @Output() back = new EventEmitter<void>();
 
+  doc: any;
+  error = '';
 
-  doc: any; error = '';
+  
+bookNow() {
+  this.bookAppointment.emit(this.doctorId);
+}
 
-  constructor(private api: Api, private ar: ActivatedRoute) { }
+  constructor(private api: Api) {}
 
   ngOnInit() {
-    const id = Number(this.ar.snapshot.paramMap.get('userId'));
-    // Load doctor details
-    this.api.get(`/PatientProfile/getdoc/${id}`).subscribe({
-      next: (p: any) => {
-        this.doc = { doctorId: p.userId, specialization: p.dd.specialization, qualifications: p.dd.qualifications, experience: p.dd.experience, name: 'Doctor ' + p.firstName, email: p.email, rating: p.dd.rating, description: p.dd.description };
-        // Optional: enrich with user info /api/users?role=Doctor and filter by id
-      },
-      error: () => this.error = 'Failed to load doctor profile'
-    });
+    if (this.doctorId) {
+      this.api.get(`/PatientProfile/getdoc/${this.doctorId}`).subscribe({
+        next: (p: any) => {
+          this.doc = {
+            doctorId: p.userId,
+            specialization: p.dd.specialization,
+            qualifications: p.dd.qualifications,
+            experience: p.dd.experience,
+            name: 'Doctor ' + p.firstName,
+            email: p.email,
+            rating: p.dd.rating,
+            description: p.dd.description,
+          };
+        },
+        error: () => (this.error = 'Failed to load doctor profile'),
+      });
+    }
   }
 
-
+  goBack() {
+    this.back.emit();
+  }
 }

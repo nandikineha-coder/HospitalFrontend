@@ -1,12 +1,10 @@
-<body>
-    <section class="hero">
-        <h1>Find Your Specialist</h1>
-        <p>Tell us what you need and we'll find the right doctor for you</p>
-        <form (ngSubmit)="search()" class="searchbox">
-            <input type="text" [(ngModel)]="q" name="q" placeholder="e.g., Knee pain, Cardiology, Skin rash..."
-                required>
-            <button type="submit" class="btn">Search for Doctors</button>
-        </form>
-        <p class="help">Need help? Call us at (555) 123-4567</p>
-    </section>
-</body>
+
+<section class="hero">
+    <h1>Find Your Specialist</h1>
+    <p>Tell us what you need and we'll find the right doctor for you</p>
+    <form (ngSubmit)="search()" class="searchbox">
+        <input type="text" [(ngModel)]="q" name="q" placeholder="e.g., Knee pain, Cardiology, Skin rash..." required>
+        <button type="submit" class="btn">Search for Doctors</button>
+    </form>
+    <p class="help">Need help? Call us at (555) 123-4567</p>
+</section>

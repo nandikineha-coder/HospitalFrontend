@@ -1,43 +1,44 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Api } from '../../../services/api';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { jwtDecode } from 'jwt-decode';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-booking-results',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterModule],
   templateUrl: './booking-results.html',
-  styleUrl: './booking-results.css',
+  styleUrls: ['./booking-results.css'],
 })
 export class BookingResults implements OnInit {
+  @Input() q = '';
+  @Output() viewProfile = new EventEmitter<number>();
+  
+@Output() backToSearch = new EventEmitter<void>();
+
+goBack() {
+  this.backToSearch.emit();
+}
 
 
-  q = '';
+  openProfile(doctorId: number) {
+  this.viewProfile.emit(doctorId);
+}
+
+
   doctors: any[] = [];
   loading = true;
   error = '';
 
-  constructor(private api: Api, private ar: ActivatedRoute) { }
+  constructor(private api: Api) {}
 
   ngOnInit() {
     this.loading = false;
-    this.q = this.ar.snapshot.queryParamMap.get('q') || '';
     const id = localStorage.getItem('userId');
-    const searchParam = encodeURIComponent(this.q);
-    // Backend suggestion: GET /api/users?role=Doctor returns doctor users
     this.api.get(`/PatientProfile/${id}/getalldoctors`).subscribe({
-      next: (res: any) => {
-        this.doctors = res;
-      },
-      error: (err) => {
-        console.error('Failed to load doctors', err);
-      }
+      next: (res: any) => (this.doctors = res),
+      error: (err) => console.error('Failed to load doctors', err)
     });
   }
-
 }
-
-

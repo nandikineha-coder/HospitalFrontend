@@ -82,6 +82,18 @@ onSubmit() {
 }
 
 
+capitalizeInput(field: string) {
+  const value = this.registerForm.get(field)?.value || '';
+  if (value.length > 0) {
+    this.registerForm.get(field)?.setValue(
+      value.charAt(0).toUpperCase() + value.slice(1),
+      { emitEvent: false }
+    );
+  }
+}
+
+
+
 goToLogin() {
   this.router.navigate(['/login']);
 }

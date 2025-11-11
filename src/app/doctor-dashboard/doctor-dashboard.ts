@@ -37,7 +37,7 @@ export class DoctorDashboard implements OnInit {
   filterToDate: string = '';
 
 
-  specializations: string[] = [
+  specilization: string[] = [
     'Cardiology', 'Neurology', 'Orthopedics', 'Dermatology', 'Pediatrics',
     'Psychiatry', 'Oncology', 'Radiology', 'General Surgery', 'ENT',
     'Gastroenterology', 'Nephrology', 'Urology', 'Endocrinology', 'Pulmonology',
@@ -59,9 +59,9 @@ export class DoctorDashboard implements OnInit {
         phoneNumber: [res.phoneNumber, [Validators.required, Validators.pattern(/^\d{10}$/)]],
         gender: [res.gender, Validators.required],
         dob: [res.dob, Validators.required],
-        specialization: [res.pp?.specialization, Validators.required],
-        qualification: [res.pp?.qualification, [Validators.required, Validators.maxLength(100)]],
-        experience: [res.pp?.experience, [Validators.required, Validators.min(0)]],
+        specilization: [res.pp?.specialization, Validators.required],
+        qualifications: [res.pp?.qualifications, [Validators.required, Validators.maxLength(100)]],
+        expirence: [res.pp?.experience, [Validators.required, Validators.min(0)]],
         emergencyContact: [res.pp?.emergencyContact, [Validators.required, Validators.pattern(/^\d{10}$/)]],
       });
 
@@ -385,7 +385,7 @@ this.successMessage = 'Appointment rescheduled successfully!';
 selectOption(option: string): void {
   this.selectedOption = option;
   if (option === 'calender') {
-    localStorage.removeItem('editScheduleId'); // ✅ Clear stale edit ID
+    localStorage.removeItem('editScheduleId');
   }
 }
   logout(): void {

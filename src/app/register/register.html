@@ -53,22 +53,24 @@
     <div class="form-box">
       <h2>Register</h2>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div>
-          <label for="firstName">First Name:</label>
-          <input id="firstName" formControlName="firstName" type="text" class="form-control" />
-          <small *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
-            First name is required.
-          </small>
-        </div>
 
-        <div>
-          <label for="lastName">Last Name:</label>
-          <input id="lastName" formControlName="lastName" type="text" class="form-control" />
-          <small *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
-            Last name is required.
-          </small>
-        </div>
+<div>
+  <label for="firstName">First Name:</label>
+  <input id="firstName" formControlName="firstName" type="text" class="form-control"
+         (input)="capitalizeInput('firstName')" />
+  <small *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+    First name is required.
+  </small>
+</div>
 
+<div>
+  <label for="lastName">Last Name:</label>
+  <input id="lastName" formControlName="lastName" type="text" class="form-control"
+         (input)="capitalizeInput('lastName')" />
+  <small *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+    Last name is required.
+  </small>
+</div>
         <div>
           <label for="email">Email:</label>
           <input id="email" formControlName="email" type="email" class="form-control" />
@@ -106,56 +108,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="register-container">
-  <h2>Register</h2>
-
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="firstName">First Name:</label>
-      <input id="firstName" formControlName="firstName" type="text" />
-      <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
-        <small>First name is required.</small>
-      </div>
-    </div>
-
-    <div>
-      <label for="lastName">Last Name:</label>
-      <input id="lastName" formControlName="lastName" type="text" />
-      <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
-        <small>Last name is required.</small>
-      </div>
-    </div>
-
-    <div>
-      <label for="email">Email:</label>
-      <input id="email" formControlName="email" type="email" />
-      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-        <small>Valid email is required.</small>
-      </div>
-    </div>
-
-    <div>
-      <label for="password">Password:</label>
-      <input id="password" formControlName="password" type="password" />
-      <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
-        <small>Passwords do not match.</small>
-      </div>
-      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-        <small>Password is required.</small>
-      </div>
-    </div>
-
-    <div>
-      <label for="confirmPassword">Confirm Password:</label>
-      <input id="confirmPassword" formControlName="confirmPassword" type="password" />
-      <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
-        <small>Confirm Password is required.</small>
-      </div>
-    </div>
-
-    <button type="submit" [disabled]="registerForm.invalid">Register</button>
-
-<button type="button" class="login-btn" (click)="goToLogin()">Login</button>
-  </form>
-</div> -->

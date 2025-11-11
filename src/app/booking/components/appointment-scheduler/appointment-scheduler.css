@@ -33,7 +33,7 @@ h2 {
     font-size: 32px;
     font-weight: 700;
     text-align: center;
-    background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+    background: black;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -130,8 +130,8 @@ textarea {
 .btn-primary {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-    color: white;
+    background: green;
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 12px;
     font-size: 18px;
@@ -204,4 +204,27 @@ textarea {
     .slot-grid {
         grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
     }
+}
+
+
+.link {
+    display: block;
+    width: 100%; /* Full width inside the card */
+    text-align: center;
+    background-color: #f4f4f4; /* Light gray background */
+    color: #1f2937; /* Dark text */
+    border: 1px solid #d1d5db; /* Light border */
+    border-radius: 25px; /* Pill shape */
+    padding: 12px 0; /* Vertical padding */
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.link:hover {
+    background-color: #e5e7eb; /* Slight hover effect */
+    border-color: #9ca3af;
 }

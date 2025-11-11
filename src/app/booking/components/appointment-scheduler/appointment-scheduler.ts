@@ -1,4 +1,4 @@
-
+import { Input, Output, EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Api } from '../../../services/api';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ type Slot = { time: string; disabled: boolean };
   styleUrls: ['./appointment-scheduler.css'], // fixed
 })
 export class AppointmentScheduler implements OnInit {
-  doctorId!: number;
+  // doctorId!: number;
   patientId!: number; // read from profile or token subject
   selectedDate = this.todayStr(); // yyyy-MM-dd
   durationMinutes = 30;
@@ -26,11 +26,20 @@ export class AppointmentScheduler implements OnInit {
   loading = false;
   booking = false;
   error = ''; success = '';
+  @Input() doctorId!: number;
+  
+@Output() back = new EventEmitter<void>();
+
+backToDoctors() {
+  this.back.emit();
+}
+
+
 
   constructor(private api: Api, private ar: ActivatedRoute) { }
 
   ngOnInit() {
-    this.doctorId = Number(this.ar.snapshot.params['userId']);
+    // this.doctorId = Number(this.ar.snapshot.params['userId']);
     // TODO: set patientId from your user session/profile (e.g., decode JWT "sub")
     const sub = this.getStoredUserId();
     this.patientId = sub || 0;

@@ -12,16 +12,18 @@
 <!-- Sidebar + Content -->
 <div class="layout">
   <!-- Sidebar -->
-  <div class="sidebar">
+  
+<div class="sidebar">
     <ul>
-      <li (click)="selectOption('home')">Home</li>
-      <li (click)="selectOption('profile')">Profile</li>
-      <li (click)="selectOption('appointment')">Appointment</li>
-      <li (click)="selectOption('notification')">Notification</li>
-      <li (click)="selectOption('medical-history')">Medical History</li>
-      <li (click)="selectOption('medicine')">Medicine</li>
+      <li (click)="changeOption('home')">Home</li>
+      <li (click)="changeOption('profile')">Profile</li>
+      <li (click)="changeOption('appointment')">Appointment</li>
+      <li (click)="changeOption('appointmentschedule')">Appointment Schedules</li>
+      <li (click)="changeOption('medical-history')">Medical History</li>
+      <li (click)="changeOption('medicine')">Medicine</li>
     </ul>
   </div>
+
 
   <!-- Content Area -->
   <div class="content">
@@ -234,60 +236,137 @@
   </div>
 </div>
 <!-- Edit Mode -->
- <div *ngIf="successMessage" class="success-message">
+
+<!-- Success Message -->
+<div *ngIf="successMessage" class="success-message">
   {{ successMessage }}
 </div>
+
+<!-- Edit Mode Form -->
 <form *ngIf="isEditing" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+<div *ngIf="profileForm.get('fieldName')?.invalid && profileForm.get('fieldName')?.touched" class="error">
+  Appropriate error message
+</div>
   <p><strong>Name:</strong> {{ patientName }}</p>
   <p><strong>Email:</strong> {{ profileForm.get('email')?.value }}</p>
 
+  <div class="item-card">
+    <!-- Phone Number -->
+    <label>Phone Number:</label>
+    <input formControlName="phoneNumber" type="text" maxlength="10" />
+    <div *ngIf="profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched" class="error">
+      Phone number must be 10 digits.
+    </div>
 
-<div class="item-card">
-  <label>Phone Number:</label>
-  <input formControlName="phoneNumber" type="text" maxlength="10" pattern="[0-9]{10}" />
+    <!-- Gender -->
+    <label>Gender:</label>
+    <select formControlName="gender">
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <div *ngIf="profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched" class="error">
+      Gender is required.
+    </div>
 
-  <label>Gender:</label>
-  <select formControlName="gender">
-    <option value="">Select Gender</option>
-    <option value="Male">Male</option>
-    <option value="Female">Female</option>
-    <option value="Other">Other</option>
-  </select>
+    <!-- DOB -->
+    <label>DOB:</label>
+    <input formControlName="dob" type="date" />
+    <div *ngIf="profileForm.get('dob')?.invalid && profileForm.get('dob')?.touched" class="error">
+      Date of birth is required.
+    </div>
 
-  <label>DOB:</label>
-  <input formControlName="dob" type="date" />
+    <!-- Address -->
+    <label>Address:</label>
+    <input formControlName="adress" type="text" maxlength="100" (input)="capitalizeAddress()" />
+    <div *ngIf="profileForm.get('adress')?.invalid && profileForm.get('adress')?.touched" class="error">
+      Address is required and max 100 characters.
+    </div>
 
-  <label>Address:</label>
-  <input formControlName="adress" type="text" maxlength="100" />
+    <!-- Blood Group -->
+    <label>Blood Group:</label>
+    <select formControlName="bloodGroup">
+      <option value="">Select Blood Group</option>
+      <option *ngFor="let group of bloodGroups" [value]="group">{{ group }}</option>
+    </select>
+    <div *ngIf="profileForm.get('bloodGroup')?.invalid && profileForm.get('bloodGroup')?.touched" class="error">
+      Blood group is required.
+    </div>
 
-  <label>Blood Group:</label>
-  <select formControlName="bloodGroup">
-    <option value="">Select Blood Group</option>
-    <option *ngFor="let group of bloodGroups" [value]="group">{{ group }}</option>
-  </select>
+    <!-- Emergency Contact -->
+    <label>Emergency Contact:</label>
+    <input formControlName="emergencyContact" type="text" maxlength="10" />
+    <div *ngIf="profileForm.get('emergencyContact')?.invalid && profileForm.get('emergencyContact')?.touched" class="error">
+      Emergency contact must be 10 digits.
+    </div>
+  </div>
 
-  
-<label>Emergency Contact:</label>
-  <input formControlName="emergencyContact" type="text" maxlength="10" pattern="[0-9]{10}"/>
-</div>
-<div class="button-group">
-  <button type="submit" class="primary-btn">Save</button>
-  <button type="button" style="background-color: #f44336; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-weight: bold;" (click)="cancelEdit()">Cancel</button>
-  <button type="button" class="secondary-btn" (click)="cancelEdit()">Back</button>
-</div>
+  <!-- Buttons -->
+  <div class="button-group">
+    <button type="submit" class="primary-btn">Save</button>
+    <button type="button" class="secondary-btn" (click)="cancelEdit()">Cancel</button>
+  </div>
 </form>
 </div>
 
+<!-- Appointment -->
+    <div *ngSwitchCase="'appointment'" class="dashboard-container">
+      <h2>Appointment Section</h2>
+
+      <!-- Booking Search -->
+      <app-booking-search
+        *ngIf="view === 'search'" 
+(doctorSelected)="showDoctors($event)">
+      </app-booking-search>
+
+      <!-- Booking Results -->
+
+<app-booking-results
+  *ngIf="view === 'doctors'"
+  [q]="searchQuery"
+  (viewProfile)="showDoctorProfile($event)"
+  (backToSearch)="view = 'search'">
+</app-booking-results>
+
+      
+      <!-- Doctor Profile -->
+
+<app-doctor-profile
+  *ngIf="view === 'doctor-profile'"
+  [doctorId]="selectedDoctorId!"
+  (back)="view = 'doctors'"
+  (bookAppointment)="goToScheduler($event)">
+</app-doctor-profile>
+
+
+      
+<!-- Appointment Scheduler -->
+
+<app-appointment-scheduler
+  *ngIf="view === 'scheduler'"
+  [doctorId]="schedulerDoctorId!"
+  (back)="view = 'doctor-profile'">
+</app-appointment-scheduler>
 
 
 
-<div *ngSwitchCase="'appointment'">
-      <div class="dashboard-container">
-        <h2>Appointment Section</h2>
-        <!-- Appointment content here -->
-      </div>
+
     </div>
-         
-    </ng-container>
-  </div>
+    
+    <!-- Appointment Schedules -->
+    <!-- Other sections -->
+    <div *ngSwitchCase="'appointmentschedule'">
+      <!-- Notification content -->
+    </div>
+
+    <div *ngSwitchCase="'medical-history'">
+      <!-- Medical history content -->
+    </div>
+    
+    <div *ngSwitchCase="'medicine'">
+      <!-- Medicine content -->
+    </div>
+
+  </ng-container>
 </div>

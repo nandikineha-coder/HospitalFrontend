@@ -1,5 +1,7 @@
 /* Booking Results Styles */
-body {
+
+/* Instead of body */
+.booking-results-wrapper {
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -7,7 +9,6 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 section {
@@ -179,6 +180,30 @@ section>p {
     text-align: center;
     font-weight: 600;
 }
+
+
+.link {
+    display: block;
+    width: 100%; /* Full width inside the card */
+    text-align: center;
+    background-color: #f4f4f4; /* Light gray background */
+    color: #2c3e50; /* Dark text */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 25px; /* Pill shape */
+    padding: 10px 0; /* Vertical padding */
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.link:hover {
+    background-color: #eaeaea; /* Slight hover effect */
+    border-color: #999;
+}
+
 
 @media (max-width: 768px) {
     .card {
