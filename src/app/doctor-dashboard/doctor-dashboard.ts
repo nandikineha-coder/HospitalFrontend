@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators, Ab
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
+
 @Component({
   selector: 'app-doctor-dashboard',
   standalone: true,

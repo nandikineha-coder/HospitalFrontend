@@ -11,7 +11,7 @@ import { BookingSearch } from '../booking/components/booking-search/booking-sear
 import { BookingResults } from '../booking/components/booking-results/booking-results';
 import { DoctorProfile } from '../booking/components/doctor-profile/doctor-profile';
 import { AppointmentScheduler } from '../booking/components/appointment-scheduler/appointment-scheduler';
-
+import { Medicalhistory } from '../medical/medicalhistory/medicalhistory';
 @Component({
   selector: 'app-patient-dashboard',
   standalone: true,
@@ -24,7 +24,8 @@ imports: [
   BookingSearch,
   BookingResults,
   DoctorProfile,
-  AppointmentScheduler
+  AppointmentScheduler,
+  Medicalhistory
 ],
 
   templateUrl: './patient-dashboard.html',

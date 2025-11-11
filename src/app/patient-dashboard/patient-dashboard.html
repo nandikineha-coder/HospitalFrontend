@@ -363,10 +363,13 @@
     <div *ngSwitchCase="'medical-history'">
       <!-- Medical history content -->
     </div>
-    
-    <div *ngSwitchCase="'medicine'">
-      <!-- Medicine content -->
-    </div>
 
+    
+<div *ngSwitchCase="'medicine'" class="dashboard-container">
+  <h2>Medical History</h2>
+  <app-medicalhistory></app-medicalhistory>
+</div>
+
+    
   </ng-container>
 </div>
